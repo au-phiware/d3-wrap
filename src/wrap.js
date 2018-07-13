@@ -1,16 +1,23 @@
 const nonEnumerableProps = /^(valueOf|isPrototypeOf|to(Locale)?String|propertyIsEnumerable|hasOwnProperty)$/;
 
-function extend(f, wrapped) {
-  for (var k in f) {
-    if (!nonEnumerableProps.test(k)) {
-      wrapped[k] = f[k];
+function extend() {
+  for (var i = 0, ii = arguments.length - 1, fns = Array(ii); i < ii; i++) {
+    fns[i] = arguments[i];
+  }
+  var wrapped = arguments[i];
+  for (var i = 0; i < ii; i++) {
+    var f = fns[i];
+    for (var k in f) {
+      if (!nonEnumerableProps.test(k)) {
+        wrapped[k] = f[k];
+      }
     }
   }
   return wrapped;
 }
 
 export default function wrap(f, wrapper) {
-  return extend(f, function(context) {
+  return extend(f, wrapper, function(context) {
     for (var i = 0, ii = arguments.length, args = Array(ii + 1); i < ii; i++) {
       args[i + 1] = arguments[i];
     }
