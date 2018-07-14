@@ -1,6 +1,6 @@
 {
   "name": "d3-wrap",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A small utility function that supports wrapping a function to d3.call.",
   "main": "build/d3-wrap.js",
   "module": "index",
