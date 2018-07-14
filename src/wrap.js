@@ -22,13 +22,13 @@ export default function wrap(f, wrapper) {
       args[i + 1] = arguments[i];
     }
     args[0] = extend(f, function(wrappedContext) {
-      for (var i = 0, ii = arguments.length, args = Array(ii); i < ii; i++) {
-        args[i] = arguments[i];
+      for (var i = 0, ii = arguments.length, pass = Array(ii); i < ii; i++) {
+        pass[i] = arguments[i];
       }
       if (context.selection && wrappedContext !== context && !wrappedContext.selection) {
-        args[0] = wrappedContext.transition(context);
+        pass[0] = wrappedContext.transition(context);
       }
-      return f.apply(this, args);
+      return f.apply(this, pass);
     });
     return wrapper.apply(this, args);
   });
