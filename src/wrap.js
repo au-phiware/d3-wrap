@@ -21,11 +21,12 @@ export default function wrap(f, wrapper) {
     for (var i = 0, ii = arguments.length, args = Array(ii + 1); i < ii; i++) {
       args[i + 1] = arguments[i];
     }
-    args[0] = extend(f, function(wrappedContext) {
+    args[0] = context;
+    args[1] = extend(f, function(wrappedContext) {
       for (var i = 0, ii = arguments.length, pass = Array(ii); i < ii; i++) {
         pass[i] = arguments[i];
       }
-      if (context.selection && wrappedContext !== context && !wrappedContext.selection) {
+      if (context.selection && wrappedContext !== context && !wrappedContext.selection && wrappedContext.transition) {
         pass[0] = wrappedContext.transition(context);
       }
       return f.apply(this, pass);
