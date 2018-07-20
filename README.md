@@ -12,7 +12,7 @@ var height = ...;
 
 var xAxis = d3.axisBottom();
 
-xAxis = d3.wrap(xAxis, function(xAxis, selection) {
+xAxis = d3.wrap(xAxis, function(selection, xAxis) {
         return xAxis(
             selection.append("g")
                 .attr("class", "x axis")
